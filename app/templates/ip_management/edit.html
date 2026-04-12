@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit IP Address</h2>
+<p>Update IP details</p>
+
+<form method="POST">
+    <input type="text" name="ip_address" value="{{ ip_data.ip_address }}" required><br><br>
+
+    <input type="text" name="device_name" value="{{ ip_data.device_name }}"><br><br>
+
+    <select name="status">
+        <option {% if ip_data.status == "Used" %}selected{% endif %}>Used</option>
+        <option {% if ip_data.status == "Free" %}selected{% endif %}>Free</option>
+    </select><br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}
