@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_mysqldb import MySQL
+import os
 
 mysql = MySQL()
 
@@ -7,10 +8,11 @@ def create_app():
     app = Flask(__name__)
 
     # DATABASE CONFIG
-    app.config['MYSQL_HOST'] = 'localhost'
-    app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_PASSWORD'] = 'Adebisi2003$'
-    app.config['MYSQL_DB'] = 'pynims'
+    MYSQL_HOST = os.getenv("mysql.railway.internal")
+    MYSQL_USER = os.getenv("root")
+    MYSQL_PASSWORD = os.getenv("pvJtsVUNnAqATvfhANmTGPqcsgoompwp")
+    MYSQL_DB = os.getenv("railway")
+    MYSQL_PORT = int(os.getenv("3306"))
 
     mysql.init_app(app)
 
