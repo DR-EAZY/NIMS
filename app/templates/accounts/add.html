@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Account</h2>
+
+<form method="POST">
+    <input type="text" name="service" placeholder="Service (Netflix, Prime)" required><br><br>
+    <input type="text" name="username" placeholder="Username/Email" required><br><br>
+    <input type="text" name="password" placeholder="Password" required><br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+{% endblock %}

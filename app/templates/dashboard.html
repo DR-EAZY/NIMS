@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+<p>Overview of your network system</p>
+
+<!-- STATS -->
+<div class="cards">
+    <div class="card">
+        <p>Total Devices</p>
+        <h2>{{ total }}</h2>
+    </div>
+
+    <div class="card">
+        <p>Online Devices</p>
+        <h2 class="green">{{ online }}</h2>
+    </div>
+
+    <div class="card">
+        <p>Offline Devices</p>
+        <h2 class="red">{{ offline }}</h2>
+    </div>
+</div>
+
+<!-- RECENT DEVICES -->
+<h2 style="margin-top: 30px;">Recent Devices</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+    </tr>
+
+    {% for device in devices %}
+    <tr>
+        <td>{{ device.name }}</td>
+        <td>{{ device.type }}</td>
+        <td>
+            <span class="status {{ device.status }}">
+                {{ device.status }}
+            </span>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

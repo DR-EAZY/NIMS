@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>IP Management</h1>
+<p>Track and manage IP address allocation in the network</p>
+
+<!-- STATS (FROM YOUR STRUCTURE IDEA 🔥) -->
+<div class="cards">
+    <div class="card">
+        <p>Total IPs</p>
+        <h2>{{ total }}</h2>
+    </div>
+
+    <div class="card">
+        <p>Used</p>
+        <h2 class="red">{{ used }}</h2>
+    </div>
+
+    <div class="card">
+        <p>Free</p>
+        <h2 class="green">{{ free }}</h2>
+    </div>
+</div>
+
+<br>
+
+<a href="/add-ip">
+    <button>Add IP</button>
+</a>
+
+<br><br>
+
+{% if ips %}
+<table>
+    <tr>
+        <th>IP Address</th>
+        <th>Device</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for ip in ips %}
+    <tr>
+        <td>{{ ip.ip_address }}</td>
+        <td>{{ ip.device_name }}</td>
+        <td>
+            <span class="status {{ ip.status }}">
+                {{ ip.status }}
+            </span>
+        </td>
+        <td>
+            <a href="/edit-ip/{{ ip.id }}" class="edit-btn">Edit</a>
+            <a href="/delete-ip/{{ ip.id }}" class="delete-btn"
+               onclick="return confirm('Delete this IP?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<div class="card">
+    <p>No IP addresses available.</p>
+</div>
+{% endif %}
+
+{% endblock %}

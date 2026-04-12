@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="sidebar">
+        <h2>Hotel NIMS</h2>
+
+        <a href="/" class="{% if request.path == '/' %}active{% endif %}">Dashboard</a>
+
+<a href="/devices" class="{% if request.path.startswith('/devices') %}active{% endif %}">Devices</a>
+
+<a href="/accounts" class="{% if request.path == '/accounts' %}active{% endif %}">Account Management</a>
+
+<a href="/ip" class="{% if request.path == '/ip' %}active{% endif %}">IP Management</a>
+
+<a href="/settings" class="{% if request.path == '/settings' %}active{% endif %}">Settings</a>
+    </div>
+
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

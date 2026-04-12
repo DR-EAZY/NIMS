@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Device</h2>
+
+<form method="POST">
+    <input type="text" name="name" placeholder="Device Name" required><br><br>
+    <input type="text" name="model" placeholder="Model"><br><br>
+    <input type="text" name="mac_address" placeholder="MAC Address"><br><br>
+    <input type="text" name="ip_address" placeholder="IP Address"><br><br>
+    <input type="text" name="location" placeholder="Location"><br><br>
+    <input type="text" name="serial_number" placeholder="Serial Number"><br><br>
+
+
+<select name="type">
+    <option>Router</option>
+    <option>Switch</option>
+</select><br><br>
+
+<select name="status">
+    <option>Online</option>
+    <option>Offline</option>
+</select><br><br>
+
+    <button type="submit">Add Device</button>
+</form>
+
+{% endblock %}

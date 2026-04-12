@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Device</h2>
+
+<form method="POST">
+    <input type="text" name="name" value="{{ device.name }}" placeholder="Enter device name" required><br><br>
+
+    <input type="text" name="model" value="{{ device.model }}" placeholder="Enter device model"><br><br>
+
+    <input type="text" name="mac_address" value="{{ device.mac_address }}" placeholder="e.g. 00:1A:2B:3C:4D:5E"><br><br>
+
+    <input type="text" name="ip_address" value="{{ device.ip_address }}" placeholder="e.g. 192.168.1.1"><br><br>
+
+    <input type="text" name="location" value="{{ device.location }}" placeholder="e.g. Server Room, Office 2"><br><br>
+
+    <input type="text" name="serial_number" value="{{ device.serial_number }}" placeholder="Enter serial number"><br><br>
+
+    <select name="type">
+        <option disabled selected>Select device type</option>
+        <option {{ 'selected' if device.type=='Router' else '' }}>Router</option>
+        <option {{ 'selected' if device.type=='Switch' else '' }}>Switch</option>
+    </select><br><br>
+
+    <select name="status">
+        <option disabled selected>Select status</option>
+        <option {{ 'selected' if device.status=='Online' else '' }}>Online</option>
+        <option {{ 'selected' if device.status=='Offline' else '' }}>Offline</option>
+    </select><br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}

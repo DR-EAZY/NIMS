@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card settings-card">
+        <h1 class="title">⚙️ Settings</h1>
+        <p class="subtitle">Manage your system configuration</p>
+
+        <form class="settings-form">
+
+            <!-- System Name -->
+            <div class="form-group">
+                <label>System Name</label>
+                <input type="text" placeholder="Enter system name">
+            </div>
+
+            <!-- Admin Email -->
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" placeholder="Enter admin email">
+            </div>
+
+            <!-- Theme -->
+            <div class="form-group">
+                <label>Theme</label>
+                <select>
+                    <option>Light Mode</option>
+                    <option>Dark Mode</option>
+                </select>
+            </div>
+
+            <!-- Notifications -->
+            <div class="form-group toggle">
+                <label>Enable Notifications</label>
+                <input type="checkbox">
+            </div>
+
+            <!-- Buttons -->
+            <div class="actions">
+                <button type="submit" class="btn primary">Save Changes</button>
+                <button type="reset" class="btn secondary">Reset</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

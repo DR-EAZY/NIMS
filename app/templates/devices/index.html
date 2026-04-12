@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Devices</h1>
+<p>Manage all network devices</p>
+
+<div class="cards">
+    <div class="card">
+        <p>Total Devices</p>
+        <h2>{{ devices|length }}</h2>
+    </div>
+
+    <div class="card">
+        <p>Online</p>
+        <h2 class="green">
+            {{ devices | selectattr('status','equalto','Online') | list | length }}
+        </h2>
+    </div>
+
+    <div class="card">
+        <p>Offline</p>
+        <h2 class="red">
+            {{ devices | selectattr('status','equalto','Offline') | list | length }}
+        </h2>
+    </div>
+</div>
+
+<br>
+
+<a href="/add-device">
+    <button>Add Device</button>
+</a>
+
+<div class="table-container">
+    {% if devices %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Model</th>
+            <th>MAC Address</th>
+            <th>IP Address</th>
+            <th>Location</th>
+            <th>S/N</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for device in devices %}
+        <tr>
+            <td>{{ device.name }}</td>
+            <td>{{ device.model }}</td>
+            <td>{{ device.mac_address }}</td>
+            <td>{{ device.ip_address }}</td>
+            <td>{{ device.location }}</td>
+            <td>{{ device.serial_number }}</td>
+            <td>{{ device.type }}</td>
+
+            <td>
+                <span class="status {{ device.status }}">
+                    {{ device.status }}
+                </span>
+            </td>
+
+            <td>
+                <a href="/edit/{{ device.id }}" class="edit-btn">Edit</a>
+                <a href="/delete/{{ device.id }}" class="delete-btn"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <div class="card">
+        <p>No devices found.</p>
+        <a href="/add-device"><button>Add your first device</button></a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
