@@ -3,7 +3,7 @@ from flask import render_template, request, redirect
 from app import mysql
 
 
-# ===================== MAIN IPAM DASHBOARD =====================
+# ===================== MAIN IPMAN DASHBOARD =====================
 @ip_bp.route("/ip")
 @ip_bp.route("/ip-management")
 def index():

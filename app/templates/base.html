@@ -19,6 +19,10 @@
 
 <a href="/ip" class="{% if request.path == '/ip' %}active{% endif %}">IP Management</a>
 
+<a href="/camera" class="{% if request.path.startswith('/camera') %}active{% endif %}">
+    Cameras
+</a>
+
 <a href="/settings" class="{% if request.path == '/settings' %}active{% endif %}">Settings</a>
     </div>
 

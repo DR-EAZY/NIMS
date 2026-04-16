@@ -6,33 +6,36 @@
         <h1 class="title">⚙️ Settings</h1>
         <p class="subtitle">Manage your system configuration</p>
 
-        <form class="settings-form">
+        <form method="POST" class="settings-form">
 
             <!-- System Name -->
             <div class="form-group">
                 <label>System Name</label>
-                <input type="text" placeholder="Enter system name">
+                <input type="text" name="system_name"
+                       value="{{ settings.system_name }}" required>
             </div>
 
             <!-- Admin Email -->
             <div class="form-group">
                 <label>Admin Email</label>
-                <input type="email" placeholder="Enter admin email">
+                <input type="email" name="admin_email"
+                       value="{{ settings.admin_email }}" required>
             </div>
 
             <!-- Theme -->
             <div class="form-group">
                 <label>Theme</label>
-                <select>
-                    <option>Light Mode</option>
-                    <option>Dark Mode</option>
+                <select name="theme">
+                    <option {% if settings.theme == "Light Mode" %}selected{% endif %}>Light Mode</option>
+                    <option {% if settings.theme == "Dark Mode" %}selected{% endif %}>Dark Mode</option>
                 </select>
             </div>
 
             <!-- Notifications -->
             <div class="form-group toggle">
                 <label>Enable Notifications</label>
-                <input type="checkbox">
+                <input type="checkbox" name="notifications"
+                       {% if settings.notifications %}checked{% endif %}>
             </div>
 
             <!-- Buttons -->

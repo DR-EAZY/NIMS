@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Camera Management</h1>
+
+<a href="/add-camera">
+    <button>Add Camera</button>
+</a>
+
+<br><br>
+
+<h2>GTI Cameras</h2>
+<table>
+<tr>
+    <th>Location</th>
+    <th>IP</th>
+    <th>Serial</th>
+    <th>MAC</th>
+    <th>Password</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for cam in gti %}
+<tr>
+    <td>{{ cam[1] }}</td>
+    <td>{{ cam[2] }}</td>
+    <td>{{ cam[3] }}</td>
+    <td>{{ cam[4] }}</td>
+
+    <td>
+        <span id="pwd-{{ cam[0] }}">••••••</span>
+        <span onclick="togglePwd({{ cam[0] }}, '{{ cam[5] }}')" style="cursor:pointer;">👁️</span>
+    </td>
+
+    <td>{{ cam[6] }}</td>
+
+    <td>
+        <button onclick="openEdit(
+            '{{ cam[0] }}',
+            '{{ cam[1] }}',
+            '{{ cam[2] }}',
+            '{{ cam[3] }}',
+            '{{ cam[4] }}',
+            '{{ cam[5] }}',
+            '{{ cam[6] }}',
+            '{{ cam[7] }}'
+        )">Edit</button>
+
+        <a href="/delete-camera/{{ cam[0] }}" onclick="return confirm('Delete?')">
+            Delete
+        </a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<br><br>
+
+<h2>Five Continents Cameras</h2>
+<table>
+<tr>
+    <th>Location</th>
+    <th>IP</th>
+    <th>Serial</th>
+    <th>MAC</th>
+    <th>Password</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for cam in five %}
+<tr>
+    <td>{{ cam[1] }}</td>
+    <td>{{ cam[2] }}</td>
+    <td>{{ cam[3] }}</td>
+    <td>{{ cam[4] }}</td>
+
+    <td>
+        <span id="pwd-{{ cam[0] }}">••••••</span>
+        <span onclick="togglePwd({{ cam[0] }}, '{{ cam[5] }}')" style="cursor:pointer;">👁️</span>
+    </td>
+
+    <td>{{ cam[6] }}</td>
+
+    <td>
+        <button onclick="openEdit(
+            '{{ cam[0] }}',
+            '{{ cam[1] }}',
+            '{{ cam[2] }}',
+            '{{ cam[3] }}',
+            '{{ cam[4] }}',
+            '{{ cam[5] }}',
+            '{{ cam[6] }}',
+            '{{ cam[7] }}'
+        )">Edit</button>
+
+        <a href="/delete-camera/{{ cam[0] }}" onclick="return confirm('Delete?')">
+            Delete
+        </a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<!-- MODAL -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h2>Edit Camera</h2>
+
+        <form id="editForm" method="POST">
+
+            <input type="text" name="location" id="edit_location"><br><br>
+            <input type="text" name="ip" id="edit_ip"><br><br>
+            <input type="text" name="serial_number" id="edit_serial"><br><br>
+            <input type="text" name="mac_address" id="edit_mac"><br><br>
+            <input type="text" name="password" id="edit_password"><br><br>
+
+            <select name="status" id="edit_status">
+                <option>Online</option>
+                <option>Offline</option>
+            </select><br><br>
+
+            <select name="category" id="edit_category">
+                <option value="GTI">GTI</option>
+                <option value="Five Continents">Five Continents</option>
+            </select><br><br>
+
+            <button type="submit">Update</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+function togglePwd(id, real) {
+    let el = document.getElementById("pwd-" + id);
+    el.innerText = el.innerText === "••••••" ? real : "••••••";
+}
+
+function openEdit(id, location, ip, serial, mac, password, status, category) {
+    document.getElementById("editModal").style.display = "block";
+
+    document.getElementById("edit_location").value = location;
+    document.getElementById("edit_ip").value = ip;
+    document.getElementById("edit_serial").value = serial;
+    document.getElementById("edit_mac").value = mac;
+    document.getElementById("edit_password").value = password;
+    document.getElementById("edit_status").value = status;
+    document.getElementById("edit_category").value = category;
+
+    document.getElementById("editForm").action = "/update-camera/" + id;
+}
+
+function closeModal() {
+    document.getElementById("editModal").style.display = "none";
+}
+</script>
+
+{% endblock %}

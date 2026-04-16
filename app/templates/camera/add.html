@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Camera</h2>
+
+<form method="POST">
+
+    <input type="text" name="location" placeholder="Location" required><br><br>
+
+    <input type="text" name="ip" placeholder="IP Address" required><br><br>
+
+    <input type="text" name="serial_number" placeholder="Serial Number" required><br><br>
+
+    <input type="text" name="mac_address" placeholder="MAC Address" required><br><br>
+
+    <div style="position: relative; width: 250px;">
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <span onclick="togglePassword()" 
+              style="position:absolute; right:10px; top:8px; cursor:pointer;">
+            👁️
+        </span>
+    </div>
+    <br>
+
+    <select name="status">
+        <option>Online</option>
+        <option>Offline</option>
+    </select><br><br>
+
+    <select name="category">
+        <option value="GTI">GTI</option>
+        <option value="Five Continents">Five Continents</option>
+    </select><br><br>
+
+    <button type="submit">Save Camera</button>
+
+</form>
+
+<script>
+function togglePassword() {
+    const input = document.getElementById("password");
+
+    if (input.type === "password") {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
+}
+</script>
+
+{% endblock %}

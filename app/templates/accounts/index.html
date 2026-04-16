@@ -4,7 +4,9 @@
 
 <h1>Account Management</h1>
 
-<a href="/add-account"><button>Add Account</button></a>
+<a href="/add-account">
+    <button>Add Account</button>
+</a>
 
 <table>
     <tr>
@@ -18,18 +20,47 @@
     <tr>
         <td>{{ acc.service }}</td>
         <td>{{ acc.username }}</td>
-        <td>{{ acc.password }}</td>
+
+        <!-- PASSWORD COLUMN -->
+        <td>
+            <span id="pwd-{{ acc.id }}" class="password">••••••••</span>
+            <button 
+                onclick="togglePassword({{ acc.id }}, '{{ acc.password }}', this)" 
+                class="toggle-btn"
+            >
+                👁
+            </button>
+        </td>
+
+        <!-- ACTION COLUMN -->
         <td>
             <a href="/delete-account/{{ acc.id }}" 
-            class="edit-btn" style="color: red;"
-             onclick="return confirm('Are you sure you want to delete this account?');"
-            >
-    Delete
-</a>
-            <a href="/edit-account/{{ acc.id }}" class="edit-btn">Edit</a>
+               class="edit-btn" 
+               style="color: red;"
+               onclick="return confirm('Are you sure you want to delete this account?');">
+               Delete
+            </a>
+
+            <a href="/edit-account/{{ acc.id }}" class="edit-btn">
+                Edit
+            </a>
         </td>
     </tr>
     {% endfor %}
 </table>
 
+<!-- JAVASCRIPT -->
+<script>
+function togglePassword(id, actualPassword, btn) {
+    let pwdField = document.getElementById("pwd-" + id);
+
+    if (pwdField.innerText === "••••••••") {
+        pwdField.innerText = actualPassword;
+        btn.innerText = "👁";
+    } else {
+        pwdField.innerText = "••••••••";
+        btn.innerText = "👁";
+    }
+}
+</script>
 {% endblock %}
