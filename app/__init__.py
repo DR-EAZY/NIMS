@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import Flask, session, redirect, request
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
 
 def create_app():
     app = Flask(__name__)
+
+    # SECRET KEY
+    app.secret_key = "supersecretkey"
 
     # DATABASE CONFIG
     app.config['MYSQL_HOST'] = 'localhost'
@@ -14,6 +17,17 @@ def create_app():
 
     mysql.init_app(app)
 
+    # LOGIN PROTECTION
+    @app.before_request
+    def require_login():
+        allowed = ["/login", "/register", "/static"]
+
+        if not session.get("user"):
+            if not any(request.path.startswith(a) for a in allowed):
+                return redirect("/login")
+
+    # IMPORT BLUEPRINTS
+    from .auth import auth_bp
     from .devices import devices_bp
     from .dashboard import dashboard_bp
     from .accounts import accounts_bp
@@ -21,6 +35,8 @@ def create_app():
     from .settings import settings_bp
     from .camera import camera_bp
 
+    # REGISTER BLUEPRINTS
+    app.register_blueprint(auth_bp)
     app.register_blueprint(devices_bp)
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(accounts_bp)

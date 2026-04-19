@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect
 from app import mysql
 from . import camera_bp
+from MySQLdb import IntegrityError
 
 
 # VIEW ALL CAMERAS
@@ -21,26 +22,30 @@ def index():
 @camera_bp.route("/add-camera", methods=["GET", "POST"])
 def add_camera():
     if request.method == "POST":
-        cur = mysql.connection.cursor()
+        try:
+            cur = mysql.connection.cursor()
 
-        cur.execute("""
-            INSERT INTO cameras 
-            (location, ip, serial_number, mac_address, password, status, category)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (
-            request.form["location"],
-            request.form["ip"],
-            request.form["serial_number"],
-            request.form["mac_address"],
-            request.form["password"],
-            request.form["status"],
-            request.form["category"]
-        ))
+            cur.execute("""
+                INSERT INTO cameras 
+                (location, ip, serial_number, mac_address, password, status, category)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (
+                request.form["location"],
+                request.form["ip"],
+                request.form["serial_number"],
+                request.form["mac_address"],
+                request.form["password"],
+                request.form["status"],
+                request.form["category"]
+            ))
 
-        mysql.connection.commit()
-        cur.close()
+            mysql.connection.commit()
+            cur.close()
 
-        return redirect("/camera")
+            return redirect("/camera")
+
+        except IntegrityError:
+            return "Error: Duplicate IP / MAC / Serial Number not allowed"
 
     return render_template("camera/add.html")
 # DELETE CAMERA
